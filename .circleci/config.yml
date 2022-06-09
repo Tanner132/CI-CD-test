@@ -18,7 +18,8 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      run: curl \
+      run: >
+            curl \
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: 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" \
