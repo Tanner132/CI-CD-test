@@ -14,6 +14,16 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the test job"
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      run: curl \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: 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" \
+            https://api.github.com/gists \
+            -d '{"description":"Example of a gist","public":false,"files":{"README.md":{"content":"Hello World"}}}'
 
 # Orchestrate our job run sequence
 workflows:
@@ -23,3 +33,7 @@ workflows:
       - test:
           requires: 
            - build
+      - deploy:
+          requires:
+            - build
+            - test
